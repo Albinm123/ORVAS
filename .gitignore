@@ -1,0 +1,53 @@
+ # Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Django migrations
+*/migrations/*
+
+
+# Python egg files
+*.egg
+*.egg-info/
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Environment variables
+*.env
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Test output
+.coverage.*
+nosetests.xml
+test.xml
+coverage.xml
+*.cover
+
+# Pytest cache
+.cache/
+
+# Other configuration files
+*.DS_Store
+*.bak
+*.tmp
+*.swp
+
+
+# Backup files
+*~

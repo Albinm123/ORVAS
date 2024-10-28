@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'assistance',
     'location',
     'payments',
+    'rental',
 ]
 
 MIDDLEWARE = [
