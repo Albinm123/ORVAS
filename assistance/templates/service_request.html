@@ -1,0 +1,93 @@
+{%extends 'base.html' %}
+{%load static%}
+
+{%block content%}
+<section>
+    <div class="container mec_service_req">
+        {%if req %}
+        <div class="req">
+            <div class="req_sub">
+                <div>
+                    <img src="{{ req.user.user_profile.profile_pic.url }}" alt="Profile Picture"
+                        style="width: 50px; height: 50px; border-radius: 50%;">
+                </div>
+                <div>
+                    <p><label for="">Name :</label> {{req.user}}</p>
+                    <p><label for="">Location :</label> {{req.location}} </p>
+                    <p><label for="">Phone :</label> {{req.phone}}</p>
+                    <p><label for="">Request_time :</label> {{req.request_time}} </p>
+                </div>
+                <div>
+                {%if req.feedback.is_active %}
+                <div class="mec_requests_feedback">
+                    <h4>User Feedback</h4>
+                    <p>Amount paid :{{req.feedback.total_bill}}</p>
+                    <p>Rating : {{req.feedback.rating}} <i class="fa-solid fa-star fa-flip " style="color: #FFD43B;"></i></p>
+                    <p>{{req.feedback.comments}}</p>
+                </div>
+                {%endif%}
+                </div>
+
+            </div>
+            <div class="req_issue" id="issue">
+                <p><label for="">Issue :</label> {{req.issue}} </p>
+                <p><label for="">Issue Discriptiob :</label> {{req.issue_description}}</p>
+                <!-- {{req.}}
+            {{req.}} -->
+            </div>
+            <div>
+                <form action="{%url 'assistance:req_status_update' req.id %}" method="post">
+                    {%csrf_token%}
+                    {%if req.status == 'pending' %}
+                    <button type="submit" name="action" value="accept" id="accept">Accept</button>
+                    <button type="submit" name="action" value="canceled" id="cancel">Reject</button>
+                    {%elif req.status == 'accepted' %}
+                    <button type="submit" name="action" value="in_progress" id="in_progress">In progress</button>
+                    {%elif req.status == 'in_progress' %}
+                    <button type="submit" name="action" value="completed" id="completed">Completed</button>
+                    {%endif%}
+                </form>
+                {%if req.status == 'completed' %}
+                <p id="servicce_complte">This service is Completed</p>
+                {%elif req.status == 'canceled' %}
+                <p id="servicce_cancel">This service request is Canceled</p>
+                {%endif%}
+            </div>
+        </div>
+        {%endif%}
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>location</th>
+                        <th>Request_time</th>
+                        <th colspan="2">Status</th>
+
+                        <!-- <th></th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in serviesrequest %}
+                    <tr>
+                        <td>{{data.user}}</td>
+                        <td>{{data.location}}</td>
+                        <td>{{data.request_time}}</td>
+                        <td>{{data.status}}</td>
+                        <td> <a href="{% url 'assistance:servicce_req' data.id %}"><button> View More</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        {%if not serviesrequest%}
+                        <td colspan="4"> You Don't have any other serviesrequest</td>
+                        {%endif%}
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+{%endblock content%}

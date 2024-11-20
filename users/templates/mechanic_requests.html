@@ -1,0 +1,89 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+<div class="container admin_mec_view">
+    {% if mec_detail %}
+    <div class="admin_mec_detail">
+        {%if mec_detail.profile_pic %}
+        <div>
+            <img src="{{mec_detail.profile_pic.url}}" alt="..">
+        </div>
+        {%endif%}
+        <div>
+            <div>
+                <h2>{{mec_detail}}</h2>
+                {%if mec_detail.addres %}
+                    <p>Address : {{mec_detail.addres}}</p>
+                {%endif%}
+                {%if mec_detail.location %}
+                    <p> Location : {{mec_detail.location}}</p>
+                {%endif%}
+                {%if mec_detail.dob %}
+                    <p> D.O.B : {{mec_detail.dob}}</p>
+                {%endif%}
+                {%if mec_detail.bio %}
+                    <p> Bio : {{mec_detail.bio}}</p>
+                {%endif%}
+                {%if mec_detail.skils %}
+                    <p> Skils : {{mec_detail.skils}}</p>
+                {%endif%}
+                {%if mec_detail.experience %}
+                    <p> Experience : {{mec_detail.experience}}</p>
+                {%endif%}
+                {%if mec_detail.phone %}
+                    <p> Phone : {{mec_detail.phone}}</p>
+                {%endif%}
+                {%if mec_detail.available %}
+                    <p>is available : {{mec_detail.available}} </p>
+                {%endif%}
+                {%if mec_detail.specialized_in %}
+                    <p>specialized_in : {{mec_detail.specialized_in}}</p>
+                {%else%}
+                    <p>Other details are not updated by mechanic</p>
+                {%endif%}
+                {%if mec_detail.is_approved %}
+                    <p>Mechanic is approved</p>
+                {%else%}
+                    <p>Mechanic is not approved </p>
+                    <form action="{%url 'users:mec_requests_approve' mec_detail.id %}" method="post">
+                        {%csrf_token%}
+                        <button type="submit" name="action" value="is_approved">Approve</button>
+                    </form>
+                {%endif%}
+    
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="adminmec_wrapper">
+        <table>
+            <thead>
+                <th>Mechanics</th>
+                <th>Rating</th>
+                <th>Location</th>
+                <th colspan="2">Is approved</th>
+            </thead>
+            <tbody>
+                {% for mec in mec_data %}
+                <tr>
+                    <td>{{mec}} {{mec.id}}</td>
+                    <td>{{mec.average_rating}}</td>
+                    <td>{{mec.location}}</td>
+                    {%if mec.is_approved%}
+                    <td>Approved</td>
+                    {%else%}
+                    <td>Not Approved</td>
+                    {%endif%}
+                    <td>
+                        <a href="{%url 'users:mec_requests_detail' mec.id %}"><button class="admin_mec_req_btn">view more</button></a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    
+    </div>
+</div>
+
+{%endblock%}

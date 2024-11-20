@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{%load static%} 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{%static 'css/login_style.css'%}">
+</head>
+<body class="">
+    <div class="login-container ">
+        <h2>Login</h2>
+        {%for message in messages %}
+                <div>
+                {{error}}
+                </div>
+        {%endfor%}
+        {% if form.errors %}
+            <div class="error">
+                Please enter a valid username and password.
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Enter your Username or Email" required>
+            <input type="password" name="password" placeholder="Enter your Password" required>
+            <p>Don't have an account <a class="" href="{%url 'users:register' %}">Register</a></p>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+<section class="mec_home_sec">
+    <div class="mec_home ">
+        <div>
+            <h1>Welcome to ORVAS Mechanics Hub! </h1>
+            <p>
+                We're thrilled to have you as part of our growing community of skilled mechanics.
+                Here, your expertise keeps vehicles on the road and drivers safe.
+                Our platform is designed to support you with:
+            <p>
+                Opportunities: Connect with customers in need of your services. <br>
+                Tools and Resources: Manage jobs, track feedback, and grow your business. <br>
+                Community: Share knowledge, learn from peers, and enhance your skills. <br>
+            </p>
+            <p>
+                Your hard work and dedication keep our world moving. Let’s make every ride smoother together!
+                Ready to get started? Log in to access your dashboard and explore new service request
+            </p>
+
+            </p>
+        </div>
+        <!-- <img src="{%static 'media/images/oil.jpg' %}" alt=""> -->
+    </div>
+    <div class="mec_requests ">
+        <!-- <h2>New requests</h2>
+            <div >
+                {{data.user}} 
+                {{data.location}}
+                {{data.request_time}}<br>
+                <button> View More</button>
+            </div> -->
+        <h2>New requests</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>location</th>
+                    <th colspan="2">Request_time</th>
+                    <!-- <th></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in serviesrequest %}
+                <tr>
+                    <td>{{data.user}}</td>
+                    <td>{{data.location}}</td>
+                    <td>{{data.request_time}} {{data.id}}</td>
+                    <td> <a href="{% url 'assistance:servicce_req' data.id %}"><button> View More</button></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    {%if not serviesrequest%}
+                    <td colspan="4"> You Don't have any serviesrequest</td>
+                    {%endif%}
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+    <br>
+    <div class="mec_feedback ">
+        <h2>Service Feedback</h2>
+        {% for service in serviesfeedback %}
+        <div class="mec_feedback_sub_div">
+            <div>
+                <img src="{{ service.user.user_profile.profile_pic.url }}" alt="Profile Picture"
+                    style="width: 50px; height: 50px; border-radius: 50%;">
+            </div>
+            <div class="mec_feedback_iner_div">
+                <div>
+                    {{service.user}} <br>
+                    {{service.rating}} <i class="fa-solid fa-star fa-flip " style="color: #FFD43B;"></i><br>
+                </div>
+                <div class="">
+                    <div class="mec_feedback_issue">
+                        <p>Issue : {{service.service_request.issue}}</p> <br>
+                        <p>Cost : {{service.total_bill}}</p>
+                    </div>
+                    <p>{{service.comments}}</p>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{%endblock content%}

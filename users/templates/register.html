@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+            <div class="input_div">
+                <div class="error">{{ form.username.errors }}</div>
+                {{form.username}}
+            </div>
+            <div class="input_div">
+                <div class="error">{{ form.password1.errors }}</div> 
+                <input  id="{{form.password1.id}}" type="password" name="{{form.password1.name}}" placeholder="Enter Your Password"> 
+            </div>
+            <div class="input_div">            
+                <div class="error">{{ form.password2.errors }}</div> 
+                <input  id="{{form.password2.id}}" type="password" name="{{form.password2.name}}" placeholder="Confirm Your Password">
+            </div>
+            <div class="input_div">
+                <label for="">Please Select Your User Type</label>
+                <div class="error">{{ form.user_type.errors }}</div> 
+                {{form.user_type}}
+            </div> 
+            <div>
+                <p>Already have an account <a class="" href="{%url 'users:login' %}">Login</a></p>
+            </div>
+            <div class="input_div">
+                <button type="submit">Register</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

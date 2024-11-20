@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+    <div class="profile_container">
+        <div class="profile_pic">
+            {%if data.profile_pic %}
+                <img src="{{data.profile_pic.url}}" alt="">
+            {%else%}
+                <img src="{%static 'media/images/no-image-icon-23492.png' %}" alt="">
+            {%endif%}
+        </div>
+        <div class="profile_detail ">
+            <div class="profile_name a">
+                <h2>{{data.user}}</h2>
+                
+                {%if data.user == request.user %}
+                <div class="edit_profile">
+                    <a href="{%url 'users:update_profile'%}"><button>Edit Profile</button></a>
+                    {%if data.user.user_type == 'mechanic'%}
+                    {%if data.user.mechanic_profile.is_approved %}
+                    <p id="approved">Approved</p>
+                    {%else%}
+                    <p id="not_approved">Not Approved yet</p>
+                    {%endif%}
+                    {%endif%}
+                </div>
+                {%endif%}  
+            </div>
+            <div class="profile_info b">
+                <div>
+                    <h4>Brithday</h4>
+                    <p>{{data.dob}}</p>
+                </div>
+                <div>
+                    <h4>Phone</h4>
+                    <p>{{data.phone}}</p>
+                </div>
+                <div>
+                    <h4>Address</h4>
+                    <p>{{data.addres}}</p>
+
+                </div>
+            </div>
+            <div class="profile_bio c">
+                <h4>Bio</h4>
+                <p>
+                    {{data.bio}}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+
+{%endblock%}

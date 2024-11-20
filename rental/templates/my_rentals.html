@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container my_rental_div">
+    <div class="my_rental_innerdiv">
+        <h2>Currently Rented cars</h2>
+        <div class=" hig">
+            {%for cdata in currently_rented %}
+            <div class="my_rental_cu">
+                <div class="rent_car_img">
+                    <a href="">
+                        <img src="{{cdata.car.car_img.url }}" alt="">
+                    </a>
+                </div>
+                <div>
+                    <div class="rent_car_disc">
+                        <a href="">
+                            <h4>{{cdata.car}}</h4>
+                        </a>
+                        <p>{{cdata.car.car_discription}}</p>
+                    </div>
+                    <div class="rent_car_price">
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+                <div>
+                    <p>Rented From <span id="start_d">{{cdata.rental_start_date}}</span> To
+                        <span id="end_d">{{cdata.rental_end_date}}</span>
+                    </p>
+                    <p>Total Amount {{cdata.total_amount}}</p>
+                    <p>Price Per Day {{cdata.car.price_per_day}}</p>
+
+                    <form action="{% url 'rental:rent_car_return' cdata.id %}" method="post">
+                        {%csrf_token%}
+                        <button type="submit" name="action" value="rent_completed">Return Car</button>
+                    </form>
+
+                </div>
+            </div>
+            {%endfor%}
+
+        </div>
+    </div>
+    <div class="my_rental_innerdiv">
+        <h2>Priviously Rented Cars</h2>
+        <div class="hig">
+            {%for data in priviosly_rented %}
+            <div class="my_rental_cu">
+                <div class="rent_car_img">
+                    <a href="">
+                        <img src="{{data.car.car_img.url }}" alt="">
+                    </a>
+                </div>
+                <div>
+                    <div class="my_rent_car_disc">
+                        <a href="">
+                            <h4>{{data.car}}</h4>
+                        </a>
+                        <a href="{% url 'rental:rental_car_detail' data.car.id %}"><button> Rent agin</button></a>
+
+                    </div>
+
+                </div>
+                <div>
+                    <p>Rented From <span id="start_d">{{data.rental_start_date}}</span> To
+                        <span id="end_d">{{data.rental_end_date}}</span>
+                    </p>
+                    <p>Amount Paid {{data.total_amount}}</p>
+                    <!-- <p>g{{data.rental_feedback.all}}</p> -->
+                    <!-- {% with feedbacks=data.rental_feedback.all %} -->
+                    {% if data.rental_feedback %}
+                    <div class="my_rent_car_feedback">
+                        <p>Your Feedback</p>
+                        <p>Rating: {{ data.rental_feedback.rating }} <i class="fa-solid fa-star fa-flip " style="color: #FFD43B;"></i></p>
+                        <p>{{ data.rental_feedback.comment }}</p>
+                        <p><small>Submitted on: {{ data.rental_feedback.created_at }}</small></p>
+                    </div>
+                    {% else %}
+                    <p>No feedback available </p>
+                    <a href="{% url 'rental:rental_feedback' data.id %}"><button>Provide Your Expiriance </button></a>
+
+                    {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            {%endfor%}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

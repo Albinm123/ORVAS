@@ -1,0 +1,51 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+<div class="container">
+    <div class="my_requests">
+        <h2>Requests</h2>
+        {% for data in requests %}
+        <div class="my_requests_detail  {% if data.status == 'pending' %}
+                status-pending
+            {% elif data.status == 'in_progress' %}
+                status-in-progress
+            {% elif data.status == 'completed' %}
+                status-completed
+            {% elif data.status == 'canceled' %}
+                status-rejected
+            {% elif data.status == 'accepted' %}
+                status-accepted
+            {% endif %}">
+    
+            <div class="my_requests_info">
+                <h4>{{data.issue}} </h4>
+                <p>{{data.issue_description}} </p>
+                <p>Requestes Mechanic : {{data.mechanic}}</p>
+                <p>Request time : {{data.request_time}}</p>
+                <p>Status : <strong>{{data.status}}</strong> </p>
+                
+                {%if data.feedback %}
+                    <form action="{%url 'assistance:feedback_remove' data.feedback.id %} " method="post">
+                        {%csrf_token%}
+                        
+                        <button type="submit" name="action" value="delete" id="">Remove</button>
+                    </form>
+                
+                {%endif%}
+              
+            </div>
+            {%if data.feedback.is_active %}
+            <div class="my_requests_feedback">
+                <h4>my review</h4>
+                <p>Amount paid :{{data.feedback.total_bill}}</p>
+                <p>Rating : {{data.feedback.rating}} <i class="fa-solid fa-star fa-flip " style="color: #FFD43B;"></i></p>
+                <p>{{data.feedback.comments}}</p>
+            </div>
+            {%endif%}
+        </div>
+    
+        {%endfor%}
+    </div>
+</div>
+
+{%endblock content %}

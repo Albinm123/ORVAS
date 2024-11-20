@@ -1,0 +1,61 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+<div class="container car" >
+    {% if car_detail %}
+    <div class="car_detail">
+        <div>
+            <img src="{{car_detail.car_img.url}}" alt="">
+        </div>
+        <div>
+            <div>
+                <h2>{{car_detail}}</h2>
+                <h4> Price Per Day : {{car_detail.price_per_day}}</h4>
+                <h4> Price Per Week : {{car_detail.price_for_week}}</h4> <br>
+    
+            </div>
+            <div class="car_detail_disc">
+                <div>
+                    <p>{{car_detail.car_discription}}</p>
+                    <p>Mileage Per Liter : {{car_detail.mileage_per_liter}} km</p>
+                </div>
+                <div>
+                    <button id="openModalBtn">Edit Car</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="rent_car">
+        {%for car in cars%}
+        <div class="rental_cars_div">
+            <div class="rent_car_img">
+                <a href="">
+                    <img src="{{car.car_img.url }}" alt="">
+                </a>
+            </div>
+            <div>
+                <div class="rent_car_disc">
+                    <a href="">
+                        <h4>{{car}}</h4>
+                    </a>
+                    <p>{{car.car_discription}}</p>
+                </div>
+                <div class="rent_car_price">
+                    <p>{{car.price_per_day}}</p>
+                </div>
+                <div>
+                    <a href="{% url 'rental:view_car_detail' car.id %}"><button>View More</button></a>
+    
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    
+    </div>
+      
+
+</div>
+
+{%endblock%}

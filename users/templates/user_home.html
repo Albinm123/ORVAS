@@ -1,0 +1,110 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+    <div class=" container  cd">
+
+        <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner carousel_div">
+                {%for car in cars%}
+                    <div class="carousel-item active d-h">
+                        <div class=" cd1">
+                            <h2>{{car}} </h2> <br>
+                            <h4>Rent Per Day : {{car.price_per_day}}</h4>
+                            <p>{{car.car_discription}}</p>
+                            <a href="{% url 'rental:rental_car_detail' car.id %}"><button id="rentBtn">Rent</button></a>
+                            <a href="{% url 'rental:rental_cars' %}"><button>View More</button></a>
+
+                        </div>
+                        <div class="cd2">
+                            <img src="{{ car.car_img.url }}" class="d-block  img_hig" alt="...">
+                        </div>
+                    </div>
+                {%endfor%}
+            </div>
+            
+            <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="mechanic_div container">
+        <div class="top_mec">
+            <div class="mec_heading">
+                <div class="mec_h">
+                    <h2 class="">Top Mechanics</h2>
+                </div>
+            </div>
+            <div class="mec_wrapper">
+                <table>
+                    <thead>
+                        <th>Mechanics</th>
+                        <th>Rating</th>
+                        <th colspan="2">Location</th>
+                    </thead>
+                    <tbody>
+                        {% for mec in mec_data %}
+                        <tr>
+                           <td>{{mec}}  {{mec.id}}</td>
+                           <td>{{mec.average_rating}}</td>
+                           <td>{{mec.location}}</td>
+                           <td>
+                            <a href="{%url 'assistance:mec_servicce_req' mec.user.id %}"><button>Contact</button></a>
+                           </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="mec_near">
+            <div class="mec_nh">
+                <h2 class=""> Mechanics Near You</h2>
+            </div>
+            <div class="mec_wrapper">
+                <table>
+                    <thead>
+                        <th>Mechanics</th>
+                        <th colspan="">Rating</th>
+                        <th colspan="2">
+                            <form method="get" class="search-form">
+                            <input type="text" name="location" placeholder="Enter location" value="{{ request.GET.location }}">
+                            <button type="submit">Search</button>
+                            </form>
+                        </th>
+                    </thead>
+                    <tbody>
+                        {%if mec_near_me %}
+                        {% for mec in mec_near_me %}
+                        <tr>
+                           <td>{{mec}}</td>
+                           <td>{{mec.average_rating}}</td>
+                           <td>{{mec.location}}</td>
+                           <td>
+                            <a href="{%url 'assistance:mec_servicce_req' mec.id %}"><button>Contact</button></a>
+                           </td>
+                        </tr>
+                        {%endfor%}
+                        {%else%}
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" rowspan="5"> Sorry no mechanics available in the location </td>
+   
+                            </tr>
+                        </tfoot>
+                        {%endif%}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{%endblock content%}

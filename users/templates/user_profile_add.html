@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+
+
+<div class="container update_container">
+    <div>
+        <h2>Update Profile</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div class="input_div">
+                <label for="">{{form.addres.label}}</label>
+                <div class="error">{{ form.addres.errors }}</div>
+                {{form.addres}}
+            </div>       
+            <div class="input_div">
+                 <label for="">{{form.location.label}}</label>
+                <div class="error">{{ form.location.errors }}</div>
+                {{form.location}}
+            </div> 
+            <div class="input_div">
+                 <label for="">{{form.phone.label}}</label>
+                <div class="error">{{ form.phone.errors }}</div>
+                {{form.phone}}
+            </div>       
+            <div class="input_div">
+                 <label for="">{{form.dob.label}}</label>
+                <div class="error">{{ form.dob.errors }}</div>
+                {{form.dob}}
+            </div>       
+            <div class="input_div">
+                 <label for="">{{form.bio.label}}</label>
+                <div class="error">{{ form.bio.errors }}</div>
+                {{form.bio}}
+            </div>       
+            <div class="input_div">
+                <div class="error">{{ form.profile_pic.errors }}</div>
+                <input type="file" name="profile_pic" accept="image/*" id="id_profile_pic">
+            </div>    
+            <button type="submit">Submit</button>
+        </form>
+    
+    </div>
+    <div class="update_profile">
+        {% if user.user_profile.profile_pic %}
+            <img src="{{ user.user_profile.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+            <p>No profile picture available.</p>
+        {% endif %}
+    </div>
+
+
+</div>
+{%endblock%}

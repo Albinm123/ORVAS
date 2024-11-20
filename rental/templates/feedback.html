@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<div class="container">
+    <div class="rental_feedback">
+        <form action="" method="post" class="custom-form">
+            {%csrf_token%}
+            {{form.as_p}}
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

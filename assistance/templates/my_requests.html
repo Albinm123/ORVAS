@@ -1,0 +1,72 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+<div class="container">
+    <div class="request_service">
+        {%if form%}
+        <form action="" method="post" class="custom-form">
+            {%csrf_token%}
+            {{form.as_p}}
+            <button type="submit">submit</button>
+        </form>
+        {%endif%}
+
+    </div>
+    {%if service_requests%}
+    <div class="my_requests">
+        <h2>Requests</h2>
+        {% for data in service_requests %}
+        <div class="my_requests_detail  {% if data.status == 'pending' %}
+            status-pending
+        {% elif data.status == 'in_progress' %}
+            status-in-progress
+        {% elif data.status == 'completed' %}
+            status-completed
+        {% elif data.status == 'canceled' %}
+            status-rejected
+        {% elif data.status == 'accepted' %}
+            status-accepted
+        {% endif %}">
+
+            <div class="my_requests_info">
+                <h4>{{data.issue}} </h4>
+                <p>{{data.issue_description}} </p>
+                <p>Requestes Mechanic : {{data.mechanic}}</p>
+                <p>Status : <strong>{{data.status}}</strong> </p>
+                {% if data.status == 'completed'%}
+                {%if not data.feedback %}
+
+                <a href="#"><button id="feedbackbtn">Share Your Experience</button></a>
+                <div id="FeedbackModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn" id="closeFeedbackModalBtn">&times;</span>
+                        <h2>Please Share Your Experience</h2>
+                        <form action="{%url 'assistance:mec_servicce_req_feedback' data.id data.mechanic.id %} "
+                            method="post">
+                            {%csrf_token%}
+                            {{feedback_form.as_p}}
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                {%endif%}
+                {%endif%}
+            </div>
+            {%if data.feedback %}
+            <div class="my_requests_feedback">
+                <h4>my review</h4>
+                <p>Amount paid :{{data.feedback.total_bill}}</p>
+                <p>Rating : {{data.feedback.rating}} <i class="fa-solid fa-star fa-flip " style="color: #FFD43B;"></i></p>
+                <p>{{data.feedback.comments}}</p>
+            </div>
+            {%endif%}
+        </div>
+
+        {%endfor%}
+    </div>
+    {%endif%}
+
+</div>
+
+{%endblock%}

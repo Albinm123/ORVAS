@@ -1,0 +1,26 @@
+{%extends 'base.html' %}
+{%load static%}
+
+{%block content%}
+<div class="container-fluid bg_img" >
+    <div class="admin_home">
+        <h1>Welcom {{request.user}}</h1>
+            <p>
+                Welcome to the Administrator Dashboard of our On-Road Vehicle Assistance System. This platform empowers you with the
+                tools and insights needed to oversee and manage all aspects of our services. From this central hub, you can
+                efficiently
+                handle user accounts, review service requests, and monitor ongoing operations to ensure timely and effective
+                assistance
+                for all users. Your role is crucial in maintaining the quality and reliability of our services, ensuring that both
+                mechanics and users have a seamless experience. Let's work together to keep the roads safe and our users satisfied.
+            </p>
+        <div>
+            <a href="{%url 'assistance:request_display' %}"><button>View All Requests</button></a>
+            <a href="{%url 'rental:add_car' %}"><button>Add new car</button></a>
+            <a href="{%url 'users:all_mec_requests' %}"><button>View all mechanic</button></a>
+            <a href="{%url 'rental:view_all_cars' %}"><button>View all cars</button></a>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

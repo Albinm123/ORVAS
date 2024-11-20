@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+    <div class="container car">
+        {% if messages %}
+        <div id="messageModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeMessageModalBtn">&times;</span>
+                <h2>Sorry</h2>
+                    {% for message in messages %}
+                            <p>{{ message }}</p>
+                    {% endfor %}
+
+            </div>
+        </div>
+        {% endif %}
+
+        {% if car_detail %}
+        <div class="car_detail"> 
+            <div>
+                <img src="{{car_detail.car_img.url}}" alt="">
+            </div>
+            <div>
+                <div>
+                    <h2>{{car_detail}}</h2>
+                    <h4>Price Per Hour : {{car_detail.price_per_hour}}</h4>
+                    <h4> Price Per Day : {{car_detail.price_per_day}}</h4>
+                    <h4> Price Per Week : {{car_detail.price_for_week}}</h4> <br>
+
+                </div>
+                <div class="car_detail_disc">
+                    <div>
+                        <p>{{car_detail.car_discription}}</p>
+                        <p>Mileage Per Liter : {{car_detail.mileage_per_liter}} km</p>
+                    </div>
+                    <div>
+                        <button  id="openModalBtn">Rent Car</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="rentalModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeModalBtn">&times;</span>
+                <h2>Select Rental Dates</h2>
+                <form action="{% url 'rental:rental_create' car_detail.id %}" id="rentalForm" method="post" >
+                    {%csrf_token%}
+                    <label for="rentalStartDate">Start Date:</label>
+                    <input type="date" id="rentalStartDate" name="rental_start_date" class="form-control" required><br>
+                    
+                    <label for="rentalEndDate">End Date:</label>
+                    <input type="date" id="rentalEndDate" name="rental_end_date" class="form-control" required><br>
+                    
+                    <input type="hidden" id="carId" name="car_id" value="{{ car_detail.id }} " data-price_per_day="{{car_detail.price_per_day}}" data-price_per_week="{{car_detail.price_for_week}}">
+                    <input type="hidden" name="calculated_amound" id="calculated_amound" value="">
+                    
+                    <p>Total Amount: <span id="totalAmount">0.00</span></p>
+                    <button type="button" id="calculate">Calculate Total</button>
+                    <button type="submit">Rent The Car</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        <div class="rent_car">
+            {%if cars%}
+            {%for car in cars%}
+            <div class="rental_cars_div">
+                <div class="rent_car_img">
+                    <a href="">
+                        <img src="{{car.car_img.url }}" alt="">
+                    </a>
+                </div>
+                <div>
+                    <div class="rent_car_disc">
+                        <a href=""><h4>{{car}}</h4></a>
+                        <p>{{car.car_discription}}</p>
+                    </div>
+                    <div class="rent_car_price">
+                        <p>{{car.price_per_day}}</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'rental:rental_car_detail' car.id %}"><button>View More</button></a>
+
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <div class="rental_cars_div_aplo">
+                <p>"We apologize, but no cars are currently available at the moment. Please check back later!" </p>
+            </div>
+            {%endif%}
+
+        </div>
+    </div>
+{% endblock %}
