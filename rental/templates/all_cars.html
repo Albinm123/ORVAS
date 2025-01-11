@@ -1,28 +1,43 @@
 {%extends 'base.html'%}
 {% load static %}
 {%block content%}
-<div class="container car" >
+<div class="container car">
     {% if car_detail %}
     <div class="car_detail">
         <div>
             <img src="{{car_detail.car_img.url}}" alt="">
         </div>
         <div>
-            <div>
+            <div class="">
                 <h2>{{car_detail}}</h2>
-                <h4> Price Per Day : {{car_detail.price_per_day}}</h4>
-                <h4> Price Per Week : {{car_detail.price_for_week}}</h4> <br>
-    
+                <h5> {{car_detail.registration_number}}</h5>
+                <h5> Price Per Day : {{car_detail.price_per_day}}</h5>
+                <h5> Price Per Week : {{car_detail.price_for_week}}</h5>
             </div>
             <div class="car_detail_disc">
                 <div>
                     <p>{{car_detail.car_discription}}</p>
                     <p>Mileage Per Liter : {{car_detail.mileage_per_liter}} km</p>
+                    <p>added date : {{car_detail.created_at}}</p>
+                    {%if car_detail.is_available%}
+                    <div class="text-success">
+                        <p>car is available</p>
+                    </div>
+                    {%else%}
+                    <div class="text-danger">
+                        <p>car is not available</p>
+                    </div>
+                    {%endif%}
+                    {%if car_detail.is_active%}
+                    <p>car is active</p>
+                    {%else%}
+                    <p>car is not active</p>
+                    {%endif%}
                 </div>
                 <div>
-                    <button id="openModalBtn">Edit Car</button>
+                    <a href="{% url 'rental:update_car_detail' car_detail.id %}" ><button>Edit Car Details</button></a>
                 </div>
-    
+
             </div>
         </div>
     </div>
@@ -40,21 +55,28 @@
                     <a href="">
                         <h4>{{car}}</h4>
                     </a>
-                    <p>{{car.car_discription}}</p>
+                    <p>{{car.registration_number}}</p>
                 </div>
-                <div class="rent_car_price">
-                    <p>{{car.price_per_day}}</p>
+                {%if car.is_available%}
+                <div class="">
+                    <p>car is available</p>
                 </div>
+                {%else%}
+                <div class="">
+                    <p>car is not available</p>
+                </div>
+
+                {%endif%}
                 <div>
                     <a href="{% url 'rental:view_car_detail' car.id %}"><button>View More</button></a>
-    
+
                 </div>
             </div>
         </div>
         {%endfor%}
-    
+
     </div>
-      
+
 
 </div>
 

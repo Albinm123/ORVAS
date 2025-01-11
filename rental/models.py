@@ -27,7 +27,7 @@ class Car(models.Model):
     car_img=models.ImageField(null=True,upload_to="media\car_img")
     car_discription=models.CharField(max_length=200,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_active=models.BooleanField(default=True)
+    is_active= models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.make} {self.model}"

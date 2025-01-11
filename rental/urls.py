@@ -13,6 +13,8 @@ urlpatterns=[
     path('administrator/add/car/',add_car_view,name='add_car'),
     path('administrator/view/car/all/',all_rental_cars_view,name='view_all_cars'),
     path('administrator/view/car/all/<int:pk>',all_rental_cars_view,name='view_car_detail'),
+    path('administrator/update/car/<int:pk>',update_car_view,name='update_car_detail'),
+
 
 
     

@@ -6,7 +6,7 @@ from .forms import *
 # Create your views here.
 def rental_cars_view(request,*args,**kwargs):
     id=kwargs.get('pk')
-    qs=Car.objects.filter(is_active=True,is_available=True)
+    qs=Car.objects.filter(is_available=True,is_active=True)
    
     if id:
         try:
@@ -97,10 +97,10 @@ def rental_feedback(request,*args,**kwargs):
 
 def add_car_view(request):
     if request.method=='POST':
-        form=AddCarForm(request.POST)
+        form=AddCarForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('administrator_home')
+            return redirect('users:administrator_home')
     else:
         form=AddCarForm()
     return render(request,'add_car.html',{'form':form})
@@ -109,7 +109,7 @@ def add_car_view(request):
 def all_rental_cars_view(request,*args,**kwargs):
     id=kwargs.get('pk')
 
-    qs=Car.objects.all(is_active=True) 
+    qs=Car.objects.all() 
     if id:
         try:
             car_detail=qs.get(id=id)
@@ -120,3 +120,15 @@ def all_rental_cars_view(request,*args,**kwargs):
      
 
     return render(request,'all_cars.html',{'cars':qs})
+
+def update_car_view(request,*args,**kwargs):
+    id = kwargs.get('pk')
+    car_obj = Car.objects.get( id = id )
+    if request.method  == 'POST' :
+        form = UpdateCarForm(request.POST,request.FILES,instance=car_obj)
+        if form.is_valid():
+            form.save()
+            return redirect('users:administrator_home')
+    else:
+        form = UpdateCarForm(instance=car_obj)
+    return render(request, "edit_car.html", {"form": form, "car": car_obj})

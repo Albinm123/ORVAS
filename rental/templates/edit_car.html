@@ -1,16 +1,15 @@
-{%extends 'base.html' %}
-{%load static%}
-
+{%extends 'base.html'%}
+{% load static %}
 {%block content%}
 <div class="container">
     <div class="add_new_car">
-        <h3>Enter Car Details</h3>
-        <form action="" method="post" enctype="multipart/form-data" class="custom-form" >
+        <h2>Edit Car: {{ car.make }} {{ car.model }}</h2>
+        <form action="" method="post" enctype="multipart/form-data" class="custom-form">
             {%csrf_token%}
             {{form.errors}}
             <div class="form-row">
                 <div>
-                
+
                     <div class="form-group">
                         <label>{{ form.make.label }}</label>
                         {{ form.make }}
@@ -64,11 +63,8 @@
                     </div>
                 </div>
             </div>
-            <div class="custom-form-btn">
-                <button type="submit">submit</button>
-            </div>
+            <button type="submit">Save Changes</button>
+            {%endblock%}
         </form>
     </div>
 </div>
-
-{%endblock%}
