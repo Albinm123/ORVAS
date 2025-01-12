@@ -35,7 +35,7 @@
                     {%endif%}
                 </div>
                 <div>
-                    <a href="{% url 'rental:update_car_detail' car_detail.id %}" ><button>Edit Car Details</button></a>
+                    <a href="{% url 'rental:update_car_detail' car_detail.id %}"><button>Edit Car Details</button></a>
                 </div>
 
             </div>
@@ -50,23 +50,24 @@
                     <img src="{{car.car_img.url }}" alt="">
                 </a>
             </div>
-            <div>
-                <div class="rent_car_disc">
+            <div class="rent_car_disc">
+                <div >
                     <a href="">
                         <h4>{{car}}</h4>
                     </a>
                     <p>{{car.registration_number}}</p>
-                </div>
-                {%if car.is_available%}
-                <div class="">
-                    <p>car is available</p>
-                </div>
-                {%else%}
-                <div class="">
-                    <p>car is not available</p>
-                </div>
+                    {%if car.is_available%}
+                    <div class="">
+                        <p>car is available</p>
+                    </div>
+                    {%else%}
+                    <div class="">
+                        <p>car is not available</p>
+                    </div>
 
-                {%endif%}
+                    {%endif%}
+
+                </div>
                 <div>
                     <a href="{% url 'rental:view_car_detail' car.id %}"><button>View More</button></a>
 

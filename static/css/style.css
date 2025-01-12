@@ -408,7 +408,9 @@ tr:nth-child(odd) {
     padding-right: 60px;
     
 }
-
+.rent_car_disc{
+    width: 30%;
+}
 .rent_car_price{
     padding-left: 10px;
 }
