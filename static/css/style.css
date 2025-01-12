@@ -825,6 +825,9 @@ tr:nth-child(odd) {
 .admin_mec_detail p{
     font-size: 20px;
 }
+.admin_mec_detail img{
+    width: 100%;
+}
 .adminmec_wrapper{
     width: 100%;
     margin-top: 20px;
