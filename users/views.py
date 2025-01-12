@@ -141,4 +141,7 @@ class MechanicApproveView(View):
         if action=='is_approved':
             mec_obj.is_approved=True
             mec_obj.save()
+        elif action == 'revoke_approval':
+            mec_obj.is_approved = False
+            mec_obj.save()
         return redirect('users:all_mec_requests')

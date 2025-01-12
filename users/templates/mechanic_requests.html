@@ -13,44 +13,45 @@
             <div>
                 <h2>{{mec_detail}}</h2>
                 {%if mec_detail.addres %}
-                    <p>Address : {{mec_detail.addres}}</p>
+                <p>Address : {{mec_detail.addres}}</p>
                 {%endif%}
                 {%if mec_detail.location %}
-                    <p> Location : {{mec_detail.location}}</p>
+                <p> Location : {{mec_detail.location}}</p>
                 {%endif%}
                 {%if mec_detail.dob %}
-                    <p> D.O.B : {{mec_detail.dob}}</p>
+                <p> D.O.B : {{mec_detail.dob}}</p>
                 {%endif%}
                 {%if mec_detail.bio %}
-                    <p> Bio : {{mec_detail.bio}}</p>
+                <p> Bio : {{mec_detail.bio}}</p>
                 {%endif%}
                 {%if mec_detail.skils %}
-                    <p> Skils : {{mec_detail.skils}}</p>
+                <p> Skils : {{mec_detail.skils}}</p>
                 {%endif%}
                 {%if mec_detail.experience %}
-                    <p> Experience : {{mec_detail.experience}}</p>
+                <p> Experience : {{mec_detail.experience}}</p>
                 {%endif%}
                 {%if mec_detail.phone %}
-                    <p> Phone : {{mec_detail.phone}}</p>
+                <p> Phone : {{mec_detail.phone}}</p>
                 {%endif%}
                 {%if mec_detail.available %}
-                    <p>is available : {{mec_detail.available}} </p>
+                <p>is available : {{mec_detail.available}} </p>
                 {%endif%}
                 {%if mec_detail.specialized_in %}
-                    <p>specialized_in : {{mec_detail.specialized_in}}</p>
+                <p>specialized_in : {{mec_detail.specialized_in}}</p>
                 {%else%}
-                    <p>Other details are not updated by mechanic</p>
+                <p>Other details are not updated by mechanic</p>
                 {%endif%}
-                {%if mec_detail.is_approved %}
-                    <p>Mechanic is approved</p>
-                {%else%}
-                    <p>Mechanic is not approved </p>
-                    <form action="{%url 'users:mec_requests_approve' mec_detail.id %}" method="post">
-                        {%csrf_token%}
+                <form action="{%url 'users:mec_requests_approve' mec_detail.id %}" method="post">
+                    {%csrf_token%}
+                    {%if mec_detail.is_approved %}
+                        <p>Mechanic is approved</p>
+                        <button type="submit" name="action" value="revoke_approval">Revoke Approval</button>
+                    {%else%}
+                        <p>Mechanic is not approved </p>
                         <button type="submit" name="action" value="is_approved">Approve</button>
-                    </form>
-                {%endif%}
-    
+                    {%endif%}
+                </form>
+
             </div>
         </div>
     </div>
@@ -76,13 +77,14 @@
                     <td>Not Approved</td>
                     {%endif%}
                     <td>
-                        <a href="{%url 'users:mec_requests_detail' mec.id %}"><button class="admin_mec_req_btn">view more</button></a>
+                        <a href="{%url 'users:mec_requests_detail' mec.id %}"><button class="admin_mec_req_btn">view
+                                more</button></a>
                     </td>
                 </tr>
                 {%endfor%}
             </tbody>
         </table>
-    
+
     </div>
 </div>
 
