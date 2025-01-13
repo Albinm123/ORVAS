@@ -125,8 +125,14 @@ tr:nth-child(odd) {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-items: stretch;
-    width: 60% !important;
+    /* width: 60% !important; */
     margin: 20px;
+}
+.update_div{
+    width: 100%;
+}
+.update_div form{
+    padding-left: 20px;
 }
 .update_container button {
     width: 100%;

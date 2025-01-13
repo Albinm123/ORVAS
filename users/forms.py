@@ -46,3 +46,12 @@ class UserProfileForm(forms.ModelForm):
     #     super().__init__(*args, **kwargs)
     #     self.fields['profile_pic'].widget.attrs.pop('initial_text', None)
     #     self.fields['profile_pic'].widget.attrs.pop('clear_checkbox_label', None)
+    
+class MecProfileForm(forms.ModelForm):
+    class Meta:
+        model=MechanicProfile
+        exclude=('user','is_approved','is_active','average_rating',)
+        widgets={
+            "dob":forms.DateInput(attrs={"type":"date"}),
+            # 'profile_pic': ClearableFileInput(attrs={'clear_label': ''}),
+        }

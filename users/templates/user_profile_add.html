@@ -4,7 +4,7 @@
 
 
 <div class="container update_container">
-    <div>
+    <div class="update_div">
         <h2>Update Profile</h2>
         <form action="" method="post" enctype="multipart/form-data">
             {%csrf_token%}
@@ -12,40 +12,61 @@
                 <label for="">{{form.addres.label}}</label>
                 <div class="error">{{ form.addres.errors }}</div>
                 {{form.addres}}
-            </div>       
+            </div>
             <div class="input_div">
-                 <label for="">{{form.location.label}}</label>
+                <label for="">{{form.location.label}}</label>
                 <div class="error">{{ form.location.errors }}</div>
                 {{form.location}}
-            </div> 
+            </div>
             <div class="input_div">
-                 <label for="">{{form.phone.label}}</label>
+                <label for="">{{form.phone.label}}</label>
                 <div class="error">{{ form.phone.errors }}</div>
                 {{form.phone}}
-            </div>       
+            </div>
             <div class="input_div">
-                 <label for="">{{form.dob.label}}</label>
+                <label for="">{{form.dob.label}}</label>
                 <div class="error">{{ form.dob.errors }}</div>
                 {{form.dob}}
-            </div>       
+            </div>
             <div class="input_div">
-                 <label for="">{{form.bio.label}}</label>
+                <label for="">{{form.bio.label}}</label>
                 <div class="error">{{ form.bio.errors }}</div>
                 {{form.bio}}
-            </div>       
+            </div>
+            {% if request.user.user_type == 'mechanic' %}
             <div class="input_div">
+                <label for="">{{form.skils.label}}</label>
+                <div class="error">{{ form.skils.errors }}</div>
+                {{form.skils}}
+            </div>
+            <div class="input_div">
+                <label for="">{{form.experience.label}}</label>
+                <div class="error">{{ form.experience.errors }}</div>
+                {{form.experience}}
+            </div>
+            <div class="input_div">
+                <label for="">{{form.specialized_in.label}}</label>
+                <div class="error">{{ form.specialized_in.errors }}</div>
+                {{form.specialized_in}}
+            </div>
+            {%endif%}
+            <div class="input_div">
+                <label for="">select a image for profile pic</label>
                 <div class="error">{{ form.profile_pic.errors }}</div>
                 <input type="file" name="profile_pic" accept="image/*" id="id_profile_pic">
-            </div>    
+            </div>
+            <br>
             <button type="submit">Submit</button>
         </form>
-    
+
     </div>
     <div class="update_profile">
         {% if user.user_profile.profile_pic %}
-            <img src="{{ user.user_profile.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+        <img src="{{ user.user_profile.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+        {%elif user.mechanic_profile.profile_pic %}
+        <img src="{{ user.mechanic_profile.profile_pic.url }}" alt="Profile Picture" class="profile-pic">     
         {% else %}
-            <p>No profile picture available.</p>
+        <p>No profile picture available.</p>
         {% endif %}
     </div>
 

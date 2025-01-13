@@ -83,7 +83,7 @@ class AddProfileView(View):
             return render(request,'user_profile_add.html',{'form':form})
         if request.user.user_type == 'mechanic':
             mec_profile = get_object_or_404(MechanicProfile, user=request.user)
-            form=UserProfileForm( instance=mec_profile)
+            form=MecProfileForm( instance=mec_profile)
             return render(request,'user_profile_add.html',{'form':form})
     
     def post(self,request,*args,**kwargs):
@@ -95,10 +95,10 @@ class AddProfileView(View):
                     return redirect(reverse('users:home'))
             if request.user.user_type == 'mechanic':
                 mec_profile = get_object_or_404(MechanicProfile, user=request.user)
-                form=UserProfileForm(request.POST,request.FILES,instance=mec_profile)
+                form=MecProfileForm(request.POST,request.FILES,instance=mec_profile)
                 if form.is_valid():
                     mec_profile = form.save() 
-                    return redirect(reverse('users:home'))
+                    return redirect(reverse('assistance:mec_home'))
 
             return render(request,'user_profile_add.html',{'form':form})
 

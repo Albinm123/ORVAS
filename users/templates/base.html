@@ -75,7 +75,7 @@
                     <a class="nav-link" href="{%url 'users:all_mec_requests' %}"> View all mechanic </a>
                 </li>
                 {%endif%}
-       
+                <li>{{request.user.user_type}}</li>
 
             </ul>
             <form class="d-flex" role="search">
@@ -89,11 +89,17 @@
                     {%if user.user_profile.profile_pic%}
                     <a href="{% url 'users:profile_display' %}"><img class="profile-small" src="{{user.user_profile.profile_pic.url}}"
                             alt="."></a>
+                    {%else%}
+                    <a href="{% url 'users:update_profile' %}"><img class="profile-small"
+                            src="{%static 'media/images/no-image-icon-23492.png' %}" alt=".."></a>
                     {%endif%}
                 {%elif request.user.user_type == 'mechanic'%}
                     {%if user.mechanic_profile.profile_pic%}
                     <a href="{% url 'users:profile_display' %}"><img class="profile-small" src="{{user.mechanic_profile.profile_pic.url}}"
                             alt="."></a>
+                    {%else%}
+                    <a href="{% url 'users:update_profile' %}"><img class="profile-small"
+                            src="{%static 'media/images/no-image-icon-23492.png' %}" alt=".."></a>
                     {%endif%}
                 {%else%}
                 <a href="{% url 'users:profile_display' %}"><img class="profile-small"
