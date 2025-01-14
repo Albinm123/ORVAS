@@ -13,4 +13,6 @@ urlpatterns=[
     path('administrator/mechanic/request/',views.AllMechanicRequestsView.as_view(),name="all_mec_requests"),
     path('administrator/mechanic/request/<int:pk>/',views.AllMechanicRequestsView.as_view(),name="mec_requests_detail"),
     path('administrator/mechanic/approve/<int:pk>/',views.MechanicApproveView.as_view(),name="mec_requests_approve"),
+    path('administrator/add/admin/',views.AdminRegistrationView.as_view(),name="add_admin"),
+    
 ]

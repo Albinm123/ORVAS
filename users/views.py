@@ -47,7 +47,7 @@ class SigninView(View):
                 return redirect(reverse('users:login'))
         else:
             messages.error(request, "Invalid username or password.")
-            return render(request, 'login.html')        
+            return redirect( 'users:login')        
         
 
         
@@ -145,3 +145,15 @@ class MechanicApproveView(View):
             mec_obj.is_approved = False
             mec_obj.save()
         return redirect('users:all_mec_requests')
+
+class AdminRegistrationView(View):
+    def get(self,request):
+        form= AdminCreationForm()
+        return render(request,'add_admin.html',{'form':form})
+    
+    def post(self,request,):
+        form=AdminCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('users:administrator_home'))
+        return render(request,'add_admin.html',{'form':form})

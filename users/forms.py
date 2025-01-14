@@ -9,7 +9,7 @@ class CustomUserCreationForm(UserCreationForm):
     USER_TYPES=(
         ('user','User'),
         ('mechanic','Mechanic'),
-        ('administrator','admin')
+        
     )
     user_type=forms.ChoiceField(choices=USER_TYPES,)
 
@@ -54,4 +54,32 @@ class MecProfileForm(forms.ModelForm):
         widgets={
             "dob":forms.DateInput(attrs={"type":"date"}),
             # 'profile_pic': ClearableFileInput(attrs={'clear_label': ''}),
+        }
+        
+class AdminCreationForm(UserCreationForm):
+    USER_TYPES=(
+        ('administrator','admin'),
+        ('user','User'),
+        ('mechanic','Mechanic'),        
+    )
+    user_type=forms.ChoiceField(choices=USER_TYPES,)
+
+    class Meta:
+        model=CustomeUser
+        fields = ( 'username','password1','password2','user_type')        
+        widgets = {
+            "username": forms.TextInput(attrs={
+                "class": "form-control",
+                "title": "Your name",
+                "placeholder": "Enter the name"
+            }),
+            "password1": forms.PasswordInput(attrs={
+                "class": "form-control",
+                "title": "Your name",
+                "placeholder": "Enter the password"
+            }),
+            "password2": forms.PasswordInput(attrs={
+                "class": "form-control",
+                "placeholder": "Confirm the password"
+            }),
         }
