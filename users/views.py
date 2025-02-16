@@ -30,9 +30,6 @@ class SigninView(View):
         password = request.POST.get('password')
         
         user=authenticate(request,username=username,password=password)
-        next_url = request.GET.get('next')
-        if next_url:
-                del request.GET['next']
         
         if user is not None:
             login(request, user)  
